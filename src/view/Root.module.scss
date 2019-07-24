@@ -16,7 +16,7 @@ $color--fourth: #fff !default;
 	display: flex;
 }
 
-.label {
+.maxScore-label {
 	position: absolute;
 	top: 530px;
 	left: 50%;
@@ -29,7 +29,7 @@ $color--fourth: #fff !default;
 	transform: translateX(-50%);
 }
 
-.final-score {
+.maxScore-input{
 	position: absolute;
 	top: 560px;
 	left: 50%;
@@ -42,6 +42,6 @@ $color--fourth: #fff !default;
 	transform: translateX(-50%);
 }
 
-.final-score:focus {
+.maxScore-input:focus {
 	outline: none;
 }

@@ -121,7 +121,7 @@ class Root extends React.Component {
                 {gameMarkup}
 
                 <label 
-                    className={styles['label']} 
+                    className={styles['maxScore-label']} 
                     htmlFor="maxScore"
                 >
                     Final Score
@@ -132,7 +132,7 @@ class Root extends React.Component {
                     name="maxScore"
                     value={this.state.maxScore}
                     type="number" 
-                    className={styles['final-score']}/>
+                    className={styles['maxScore-input']}/>
             </div>
         );
     }
