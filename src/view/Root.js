@@ -1,10 +1,10 @@
 import React from 'react';
+import NewGame from '../components/NewGame/NewGame';
 import Dice from '../components/Dice/Dice';
 import Button from '../components/Button/Button';
 import PlayerList from '../components/PlayerList/PlayerList';
 import CreatePlayer from '../helpers/CreatePlayer';
 import styles from './Root.module.scss';
-
 class Root extends React.Component {
 
     constructor(props) {
@@ -92,26 +92,11 @@ class Root extends React.Component {
         );
         return (
             <div className={styles.wrapper}>
-                
-                <Button name={'new'} onClick={() => this.newGame()}>New Game</Button>
+                <NewGame onClick={() => this.newGame()} onChange={(e) => this.handleChange(e)} valueMaxScore={this.state.valueMaxScore}/>
                 { this.state.isGameActive ? buttons : null}
 
                 <Dice numbers={this.state.diceNums}/>
                 <PlayerList players={this.state.players} currentPlayer={this.state.currentPlayer} />
-
-                <label 
-                    className={styles['maxScore-label']} 
-                    htmlFor="valueMaxScore"
-                >
-                    Final Score
-                </label>
-
-                <input 
-                    onChange={(e) => this.handleChange(e)}
-                    name="valueMaxScore"
-                    value={this.state.valueMaxScore}
-                    type="number" 
-                    className={styles['maxScore-input']}/>
             </div>
         );
     }

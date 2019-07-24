@@ -11,33 +11,3 @@ $color--fourth: #fff !default;
 	background-color: $color--fourth;
 	box-shadow: 0 10px 50px rgba(0, 0, 0, .3);
 }
-
-.maxScore-label {
-	position: absolute;
-	top: 530px;
-	left: 50%;
-	padding: 10px;
-	width: 160px;
-	color: $color--first;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 12px;
-	transform: translateX(-50%);
-}
-
-.maxScore-input{
-	position: absolute;
-	top: 560px;
-	left: 50%;
-	padding: 10px;
-	width: 160px;
-	color: $color--first;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 18px;
-	transform: translateX(-50%);
-}
-
-.maxScore-input:focus {
-	outline: none;
-}
