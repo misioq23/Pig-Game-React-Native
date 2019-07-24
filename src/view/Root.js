@@ -1,7 +1,7 @@
 import React from 'react';
-import Player from '../components/Player/Player';
 import Dice from '../components/Dice/Dice';
 import Button from '../components/Button/Button';
+import PlayerList from '../components/PlayerList/PlayerList';
 import CreatePlayer from '../helpers/CreatePlayer';
 import styles from './Root.module.scss';
 
@@ -90,34 +90,13 @@ class Root extends React.Component {
 
                 <Dice numbers={this.state.diceNums}/>
 
-                <div className={styles.game}>
-                    {
-                        this.state.players.map((player, index) => {
-                            const activePlayer = +this.state.currentPlayer === index;
-                            return (
-                                <Player 
-                                    key={index}
-                                    name={player.name}
-                                    isActive={activePlayer}
-                                    currentScore={player.currentScore}
-                                    score={player.score}
-                                    winner={player.winner}
-                                />
-                            )
-                        })
-                    }
-                </div>
+                <PlayerList players={this.state.players} currentPlayer={this.state.currentPlayer} />
             </>
         );
         return (
             <div className={styles.wrapper}>
                 
-                <Button 
-                    name={'new'} 
-                    onClick={() => this.newGame()}
-                >
-                    New Game
-                </Button>
+                <Button name={'new'} onClick={() => this.newGame()}>New Game</Button>
 
                 {gameMarkup}
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './Player.module.scss';
 
-const Player = ({name, currentScore, score, isActive, winner}) => {
-
+const Player = ({player, isActive}) => {
+	const {name, score, currentScore, winner} = player;
+	
 	const style = [styles.player]
 	style.push(winner ? styles['winner'] : !isActive || styles['active']);
 
