@@ -14,7 +14,8 @@ class Root extends React.Component {
             diceNums: [],
             currentPlayer: false,
             isGameActive: false,
-            maxScore: 100
+            valueMaxScore: 100,
+            maxScore: 100,
         }
     }
     
@@ -23,13 +24,13 @@ class Root extends React.Component {
             players : [new CreatePlayer('Player 1'), new CreatePlayer('Player 2')],
             diceNums: [],
             currentPlayer: false,
-            isGameActive: true 
+            isGameActive: true,
+            maxScore: this.state.valueMaxScore
         })
     }
     
-    handleChange = event => {
+    handleChange(event) {
         const { name, value } = event.target
-      
         this.setState({
           [name]: value,
         })
@@ -100,15 +101,15 @@ class Root extends React.Component {
 
                 <label 
                     className={styles['maxScore-label']} 
-                    htmlFor="maxScore"
+                    htmlFor="valueMaxScore"
                 >
                     Final Score
                 </label>
 
                 <input 
-                    onChange={this.handleChange}
-                    name="maxScore"
-                    value={this.state.maxScore}
+                    onChange={(e) => this.handleChange(e)}
+                    name="valueMaxScore"
+                    value={this.state.valueMaxScore}
                     type="number" 
                     className={styles['maxScore-input']}/>
             </div>
