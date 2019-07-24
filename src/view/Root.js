@@ -56,9 +56,10 @@ class Root extends React.Component {
     }
 
     hold() {
-        if (this.state.isGameActive) {
-            const players = [...this.state.players];
-            const activePlayer = players[+this.state.currentPlayer];
+        const players = [...this.state.players];
+        const activePlayer = players[+this.state.currentPlayer];
+
+        if (this.state.isGameActive && activePlayer.currentScore > 0) {
 
             activePlayer.score += activePlayer.currentScore;
             activePlayer.currentScore = 0;
