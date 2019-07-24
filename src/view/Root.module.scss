@@ -1,0 +1,47 @@
+$color--first: #555 !default;
+$color--second: #eb4d4d !default;
+$color--third: #f7f7f7 !default;
+$color--fourth: #fff !default;
+
+.wrapper {
+	position: relative;
+	margin: 0 auto;
+	width: 1000px;
+	min-height: 65%;
+	background-color: $color--fourth;
+	box-shadow: 0 10px 50px rgba(0, 0, 0, .3);
+}
+
+.game {
+	display: flex;
+}
+
+.label {
+	position: absolute;
+	top: 530px;
+	left: 50%;
+	padding: 10px;
+	width: 160px;
+	color: $color--first;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	transform: translateX(-50%);
+}
+
+.final-score {
+	position: absolute;
+	top: 560px;
+	left: 50%;
+	padding: 10px;
+	width: 160px;
+	color: $color--first;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 18px;
+	transform: translateX(-50%);
+}
+
+.final-score:focus {
+	outline: none;
+}

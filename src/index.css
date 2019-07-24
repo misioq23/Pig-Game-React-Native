@@ -1,0 +1,26 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+html {
+	font-family: 'Montserrat', sans-serif;
+}
+body {
+	margin: 0;
+}
+
+#app {
+	display: flex;
+	align-items: center;
+	height: 100vh;
+	background-image: linear-gradient(rgba(62, 20, 20, .4), rgba(62, 20, 20, .4), url(./assets/back.jpg));
+	background-position: center;
+	background-size: cover;
+	color: #000;
+}
