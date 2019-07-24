@@ -83,22 +83,20 @@ class Root extends React.Component {
     }
 
     render() {
-        const gameMarkup = (
+        const buttons = (
             <>
-                <Button name={'roll'} onClick={() => this.draw()}>Roll</Button>
+                <Button name={'roll'} onClick={() => this.draw()}>Roll Dice</Button>
                 <Button name={'hold'} onClick={() => this.hold()}>Hold</Button>
-
-                <Dice numbers={this.state.diceNums}/>
-
-                <PlayerList players={this.state.players} currentPlayer={this.state.currentPlayer} />
             </>
         );
         return (
             <div className={styles.wrapper}>
                 
                 <Button name={'new'} onClick={() => this.newGame()}>New Game</Button>
+                { this.state.isGameActive ? buttons : null}
 
-                {gameMarkup}
+                <Dice numbers={this.state.diceNums}/>
+                <PlayerList players={this.state.players} currentPlayer={this.state.currentPlayer} />
 
                 <label 
                     className={styles['maxScore-label']} 
