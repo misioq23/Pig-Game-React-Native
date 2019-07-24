@@ -1,24 +1,32 @@
 import React from 'react';
-import styles from './Root.module.scss';
 import Player from '../components/Player/Player';
 import Dice from '../components/Dice/Dice';
 import Button from '../components/Button/Button';
+import CreatePlayer from '../helpers/CreatePlayer';
+import styles from './Root.module.scss';
 
 class Root extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            names: ['Player 1', 'Player 2'],
-            currentScore: 0,
-            score: [0, 0],
-            diceNums: [null, null],
+            players : [],
+            diceNums: [],
             currentPlayer: false,
-            winner: null,
-            newGame: false
+            isGameActive: false,
+            maxScore: 100
         }
     }
-
+    
+    newGame() {
+        this.setState({
+            players : [new CreatePlayer('Player 1'), new CreatePlayer('Player 2')],
+            diceNums: [],
+            currentPlayer: false,
+            isGameActive: true 
+        })
+    }
+    
     handleChange = event => {
         const { name, value } = event.target
       
@@ -27,68 +35,46 @@ class Root extends React.Component {
         })
       }
 
-    newGame() {
-        this.setState({
-            names: ['Player 1', 'Player 2'],
-            currentScore: 0,
-            score: [0, 0],
-            diceNums: [null, null],
-            currentPlayer: false,
-            winner: null,
-            newGame: true 
-        })
-    }
-
     draw() {
-        if (!this.state.winner) {
+        if (this.state.isGameActive) {
+            const players = [...this.state.players];
+            const activePlayer = players[+this.state.currentPlayer];
+
             const rollNumber = () => Math.floor(Math.random() * 6) + 1;
             const dice = [rollNumber(), rollNumber()];
 
+            // If any 1 didn't fall out- Add dice numbers to current score otherwise reset currentScore
+            activePlayer.currentScore += !dice.includes(1) ? dice.reduce((a, b) => a + b, 0) : -activePlayer.currentScore;
+            // If only 1 fell out- Change player
+            if (dice.join('') !== '11' && dice.includes(1)) this.setState({currentPlayer: !this.state.currentPlayer});
+ 
             this.setState({
+                players: players,
                 diceNums: dice,
             });
-
-            if (!dice.includes(1)) {
-                // no 'one'
-                this.setState({
-                    currentScore: this.state.currentScore + dice.reduce((a, b) => a + b, 0)
-                });
-            } else if (dice.join('') === '11') {
-                // two 'ones'
-                this.setState({
-                    currentScore: 0
-                });
-            } else {
-                // one 'one'
-                this.setState({
-                    currentScore: 0,
-                    currentPlayer: !this.state.currentPlayer
-                });
-            }
         }
     }
 
     hold() {
-        if (!this.state.winner) {
-            const activePlayer = +this.state.currentPlayer;
-            const score = [...this.state.score];
-            score[activePlayer] +=  this.state.currentScore;
+        if (this.state.isGameActive) {
+            const players = [...this.state.players];
+            const activePlayer = players[+this.state.currentPlayer];
+
+            activePlayer.score += activePlayer.currentScore;
+            activePlayer.currentScore = 0;
     
-            this.setState({
-                score: score,
-                currentScore: 0,
-            });
-    
-            if(score[activePlayer] >= this.state.maxScore) {
-                const names = [...this.state.names];
-                names[activePlayer] = 'Winner';
+            if(activePlayer.score >= this.state.maxScore) {
+                activePlayer.name = 'Winner'
+                activePlayer.winner = true;
+
                 this.setState({
-                    names: names,
-                    winner: activePlayer + 1,
-                    diceNums: [null, null]
+                    players: players,
+                    diceNums: [],
+                    isGameActive: false
                 });   
             } else {
                 this.setState({
+                    players: players,
                     currentPlayer: !this.state.currentPlayer
                 });
             }
@@ -96,43 +82,55 @@ class Root extends React.Component {
     }
 
     render() {
-        const data = (
+        const gameMarkup = (
             <>
                 <Button name={'roll'} onClick={() => this.draw()}>Roll</Button>
                 <Button name={'hold'} onClick={() => this.hold()}>Hold</Button>
 
-                <Dice 
-                    numbers={this.state.diceNums}
-                />
+                <Dice numbers={this.state.diceNums}/>
+
                 <div className={styles.game}>
                     {
-                        this.state.names.map((el, i) => {
-                            const isActive = +this.state.currentPlayer === i;
+                        this.state.players.map((player, index) => {
+                            const activePlayer = +this.state.currentPlayer === index;
                             return (
                                 <Player 
-                                    key={i}
-                                    name={el}
-                                    isActive={isActive}
-                                    currentScore={isActive ? this.state.currentScore : 0}
-                                    score={this.state.score[i]}
-                                    winner={this.state.winner}
+                                    key={index}
+                                    name={player.name}
+                                    isActive={activePlayer}
+                                    currentScore={player.currentScore}
+                                    score={player.score}
+                                    winner={player.winner}
                                 />
                             )
                         })
                     }
                 </div>
             </>
-        )
+        );
         return (
             <div className={styles.wrapper}>
                 
-                <Button name={'new'} onClick={() => this.newGame()}>New Game</Button>
-                {this.state.newGame ? data : ''}
-                <label className={styles['label']} for="maxScore">Final Score</label>
+                <Button 
+                    name={'new'} 
+                    onClick={() => this.newGame()}
+                >
+                    New Game
+                </Button>
+
+                {gameMarkup}
+
+                <label 
+                    className={styles['label']} 
+                    htmlFor="maxScore"
+                >
+                    Final Score
+                </label>
+
                 <input 
                     onChange={this.handleChange}
                     name="maxScore"
-                    value={this.state.maxScore || 100 }
+                    value={this.state.maxScore}
                     type="number" 
                     className={styles['final-score']}/>
             </div>

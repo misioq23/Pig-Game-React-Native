@@ -2,10 +2,12 @@ import React from 'react';
 import styles from './Player.module.scss';
 
 const Player = ({name, currentScore, score, isActive, winner}) => {
-	const win = winner ? winner - 1 : false;
+
+	const style = [styles.player]
+	style.push(winner ? styles['winner'] : !isActive || styles['active']);
 
 	return (
-		<div className={win ? [styles.player, styles.winner].join(' ') : [styles.player, (isActive ? styles.active : '')].join(' ')}>
+		<div className={style.join(' ')}>
 			<div className={styles.name}>{name}</div>
 			<div className={styles.score}>{score}</div>
 			<div className={styles['current-box']}>
