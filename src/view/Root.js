@@ -7,16 +7,13 @@ import CreatePlayer from '../helpers/CreatePlayer';
 import styles from './Root.module.scss';
 class Root extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            players : [],
-            diceNums: [],
-            currentPlayer: false,
-            isGameActive: false,
-            valueMaxScore: 100,
-            maxScore: 100,
-        }
+    state = {
+        players : [],
+        diceNums: [],
+        currentPlayer: false,
+        isGameActive: false,
+        valueMaxScore: 100,
+        maxScore: 100,
     }
     
     newGame() {
@@ -29,8 +26,8 @@ class Root extends React.Component {
         })
     }
     
-    handleChange(event) {
-        const { name, value } = event.target
+    handleChange = (e) => {
+        const { name, value } = e.target
         this.setState({
           [name]: value,
         })
@@ -92,7 +89,7 @@ class Root extends React.Component {
         );
         return (
             <div className={styles.wrapper}>
-                <NewGame onClick={() => this.newGame()} onChange={(e) => this.handleChange(e)} valueMaxScore={this.state.valueMaxScore}/>
+                <NewGame onClick={() => this.newGame()} onChange={this.handleChange} valueMaxScore={this.state.valueMaxScore}/>
                 { this.state.isGameActive ? buttons : null}
 
                 <Dice numbers={this.state.diceNums}/>
