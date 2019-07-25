@@ -17,7 +17,7 @@ class Root extends React.Component {
     
     newGame = (value) => {
         this.setState({
-            players : [new CreatePlayer('Player 1'), new CreatePlayer('Player 2')],
+            players : ['Player 1', 'Player 2'].map(el => new CreatePlayer(el)),
             diceNums: [],
             currentPlayer: false,
             isGameActive: true,
