@@ -77,14 +77,13 @@ class Root extends React.Component {
             <>
                 <Button name={'roll'} onClick={() => this.draw()}>Roll Dice</Button>
                 <Button name={'hold'} onClick={() => this.hold()}>Hold</Button>
+                <Dice numbers={this.state.diceNums}/>
             </>
         );
         return (
             <div className={styles.wrapper}>
                 <NewGame maxScore={this.state.maxScore} onClick={this.newGame} />
                 { this.state.isGameActive ? buttons : null}
-
-                <Dice numbers={this.state.diceNums}/>
                 <PlayerList players={this.state.players} currentPlayer={this.state.currentPlayer} />
             </div>
         );
