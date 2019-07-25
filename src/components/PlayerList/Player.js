@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Player.module.scss';
 
 const Player = ({player, isActive}) => {
@@ -17,6 +18,11 @@ const Player = ({player, isActive}) => {
 			</div>
 		</div>
 	);
+}
+
+Player.propTypes = {
+	player: PropTypes.object.isRequired,
+	isActive: PropTypes.bool.isRequired
 }
 
 export default Player;

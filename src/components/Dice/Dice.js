@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Dice.module.scss';
 
 const Dice = ({numbers}) => (
@@ -18,5 +19,9 @@ const Dice = ({numbers}) => (
 		}
 	</div>
 )
+
+Dice.propTypes = {
+	numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
+}
 
 export default Dice;
