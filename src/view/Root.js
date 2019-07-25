@@ -12,26 +12,18 @@ class Root extends React.Component {
         diceNums: [],
         currentPlayer: false,
         isGameActive: false,
-        valueMaxScore: 100,
         maxScore: 100,
     }
     
-    newGame() {
+    newGame = (value) => {
         this.setState({
             players : [new CreatePlayer('Player 1'), new CreatePlayer('Player 2')],
             diceNums: [],
             currentPlayer: false,
             isGameActive: true,
-            maxScore: this.state.valueMaxScore
+            maxScore: value
         })
     }
-    
-    handleChange = (e) => {
-        const { name, value } = e.target
-        this.setState({
-          [name]: value,
-        })
-      }
 
     draw() {
         if (this.state.isGameActive) {
@@ -89,7 +81,7 @@ class Root extends React.Component {
         );
         return (
             <div className={styles.wrapper}>
-                <NewGame onClick={() => this.newGame()} onChange={this.handleChange} valueMaxScore={this.state.valueMaxScore}/>
+                <NewGame maxScore={this.state.maxScore} onClick={this.newGame} />
                 { this.state.isGameActive ? buttons : null}
 
                 <Dice numbers={this.state.diceNums}/>
